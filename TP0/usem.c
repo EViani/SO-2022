@@ -9,6 +9,7 @@
 #include <sys/types.h>
 #include <sys/ipc.h>
 #include <sys/sem.h>
+
 #define SEM_MAX_RECURSO 1 /* Valor inicial de todos los semáforos */
 #define INI 0 /* Índice del primer semáforo */
 
