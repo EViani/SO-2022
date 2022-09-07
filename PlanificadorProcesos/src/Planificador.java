@@ -4,6 +4,7 @@ public class Planificador {
 	private static ArrayList<Proceso>	procesos;
 	private static RoundRobin rr;
 	private static SPF spf;
+	private static FCFS fcfs;
 	
 	public static void main(String[] args) {
 		procesos = new ArrayList<Proceso>();
@@ -14,33 +15,33 @@ public class Planificador {
 		
 		rr = new RoundRobin( procesos);
 		rr.Quantum(4);
-		rr.recorrer();
 		comp+=rr.calcularT();
 		
 		//System.out.println(procesos);
 		
 		System.out.printf("%n Agregando un tiempo de intercambio de Q/10, con Q=4 %n");
 		rr.Quantum(4,10);
-		rr.recorrer();
 		comp+=rr.calcularT();
 		
 		rr.Quantum(8);
-		rr.recorrer();
 		comp+=rr.calcularT();
 		
 		//System.out.println(procesos);
 		
 		System.out.printf("%n Agregando un tiempo de intercambio de Q/10, con Q=4 %n");
 		rr.Quantum(8,20);
-		rr.recorrer();
 		comp+=rr.calcularT();
 		
 		
 		spf = new SPF(procesos);
 		comp+=spf.calcularT();
 		
+		
 		spf.cargarTI((float)0.4);
 		comp+=spf.calcularT();
+		
+		fcfs = new FCFS(procesos);
+		comp+=fcfs.calcularT();
 		
 		System.out.printf("%n%s ",comp);
 		

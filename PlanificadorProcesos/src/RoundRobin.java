@@ -34,7 +34,7 @@ public class RoundRobin {
 	}
 	
 	
-	public void recorrer() {
+	private void recorrer() {
 		char pant;
 		resetear();
 		reloj=0;
@@ -89,6 +89,7 @@ public class RoundRobin {
 	}
 	
 	public String calcularT() {
+		recorrer();
 		float TRP,TR;
 		float TEP,TE;
 		TEP=0;
