@@ -8,17 +8,26 @@ public class Planificador {
 		procesos = new ArrayList<Proceso>();
 		String comp="";
 		cargaDefault();
-		rr = new RoundRobin(procesos);
+		
+		//System.out.println(procesos);
+		
+		rr = new RoundRobin( procesos);
 		rr.Quantum(4);
 		rr.recorrer();
 		comp+=rr.calcularT();
+		
+		//System.out.println(procesos);
+		
 		System.out.printf("%n Agregando un tiempo de intercambio de Q/10, con Q=4 %n");
-		rr.resetP();
 		rr.Quantum(4,10);
 		rr.recorrer();
 		comp+=rr.calcularT();
 		
-		System.out.printf("%n %s ",comp);
+		System.out.printf("%n%s ",comp);
+		
+		//System.out.println(procesos);
+		
+		
 		
 		
 		
@@ -39,7 +48,11 @@ public class Planificador {
 		
 	}
 	
-	
+	static void reset() {
+		for(int i=0;i<procesos.size();i++) {
+		procesos.get(i).reset();	
+		}
+	}
 	
 	
 }

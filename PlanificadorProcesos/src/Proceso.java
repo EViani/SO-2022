@@ -55,12 +55,13 @@ public class Proceso {
 	//Se define el tiempo final como el tiempo de servicio, para una nueva corrida
 	public void reset() {
 		this.TF=this.TS;
+		this.TR=0;
 	}
 	
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
-		String s = String.format("PID: %s" ,this.PID);
+		String s = String.format("PID: %s TS=%d TL=%d TR=%.2f TF=%d %n" ,this.PID,this.TS,this.TLL,this.TR,this.TF);
 		return s 	;
 	}
 	

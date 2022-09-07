@@ -7,11 +7,22 @@ public class RoundRobin {
 	ArrayList<Proceso> ronda;
 
 	public RoundRobin(ArrayList<Proceso> lista) {
+		this.ronda=new ArrayList<>();
 		this.ti=0;
-		this.ronda=lista;
+		cargarRonda(lista);
 		reloj=0;
 	}
 	
+	private void cargarRonda(ArrayList<Proceso> lista) {
+		
+		// TODO Auto-generated method stub
+		for (int i=0;i<lista.size();i++){
+			Proceso p = new Proceso();
+			p.crear(lista.get(i).getPID(),lista.get(i).getTLL() , lista.get(i).getTS()); 
+			ronda.add(p);
+		}
+	}
+
 	public void Quantum(int q) {
 		this.q=q;
 		this.ti=0;
@@ -25,6 +36,8 @@ public class RoundRobin {
 	
 	public void recorrer() {
 		char pant;
+		resetear();
+		reloj=0;
 		pant='$';
 		int tf;
 		tf=0;
@@ -94,10 +107,12 @@ public class RoundRobin {
 		return s;
 	}
 	
-	public void resetP() {
-		reloj=0;
-		for(int i=0; i<ronda.size(); i++) {
-			ronda.get(i).reset();
+	private void resetear() {
+		for(Proceso p : ronda) {
+			p.reset();
 		}
 	}
+	
+	
+
 }
