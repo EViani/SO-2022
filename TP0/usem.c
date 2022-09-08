@@ -9,9 +9,16 @@
 #include <sys/types.h>
 #include <sys/ipc.h>
 #include <sys/sem.h>
+#include <errno.h> /*Libreria agregadad*/
 
 #define SEM_MAX_RECURSO 1 /* Valor inicial de todos los semáforos */
 #define INI 0 /* Índice del primer semáforo */
+/*Constantes agregadas*/
+#define SEMMNI 128 /* máximo número de identificadores de conjuntos*/
+#define SEMMSL 32 /* máximo número de semáforos por identificador*/
+#define SEMOPM 32 /* máximo número de operaciones por llamada semop*/
+#define SEMVMX 32767 /* máximo valor por semáforo*/
+
 
 void abrir_sem(int *sid, key_t clave);
 void crear_sem(int *sid, key_t clave, int idx);
@@ -20,6 +27,16 @@ void zero_espera_sem(int clave, int idx);
 void desbloquear_sem(int clave, int idx);
 void remover_sem(int sid);
 void uso(void);
+
+/*Estructura semun agregada*/
+/* arg para la llamada del sistema semctl*/
+union semun {
+    int val;/* valor para SETVAL*/
+    struct semid_ds *buf;/* buffer para IPC_STAT e IPC_SET*/
+    ushort*array; /* array para GETALL y SETALL*/
+    struct seminfo *__buf; /* buffer para IPC_INFO*/
+    void *__pad;
+};
 
 
 int main(int argc, char *argv[])
@@ -43,7 +60,8 @@ int main(int argc, char *argv[])
             getchar();
             desbloquear_sem(semset_id, INI);
             break;
-        case 'e': zero_espera_sem(semset_id, INI);
+        case 'e': abrir_sem(&semset_id, clave);
+             zero_espera_sem(semset_id, INI);
             break;
         case 'b': abrir_sem(&semset_id, clave);
             remover_sem(semset_id);
@@ -143,8 +161,7 @@ void remover_sem(int sid)
 
 void uso(void)
 {
-    fprintf(stderr, " - usem - Utilitario básico para semáforos IPC
-    \n");
+    fprintf(stderr, " - usem - Utilitario básico para semáforos IPC\n");
     fprintf(stderr, "    USO : usem    (c)rear    \n");
     fprintf(stderr, "    (t)oma recurso compartido    \n");
     fprintf(stderr, "    (e)spera IPC de valor cero    \n");
