@@ -5,48 +5,43 @@ public class Planificador {
 	private static RoundRobin rr;
 	private static SPF spf;
 	private static FCFS fcfs;
+	private static ArrayList<Resumen> resu;
 	
 	public static void main(String[] args) {
 		procesos = new ArrayList<Proceso>();
 		String comp="";
 		cargaDefault();
 		
-		//System.out.println(procesos);
 		
 		rr = new RoundRobin( procesos);
 		rr.Quantum(4);
-		comp+=rr.calcularT();
-		
-		//System.out.println(procesos);
-		
+		comp+=rr.calcularT(resu);
+	
 		System.out.printf("%n Agregando un tiempo de intercambio de Q/10, con Q=4 %n");
 		rr.Quantum(4,10);
-		comp+=rr.calcularT();
+		comp+=rr.calcularT(resu);
 		
 		rr.Quantum(8);
-		comp+=rr.calcularT();
+		comp+=rr.calcularT(resu);
 		
-		//System.out.println(procesos);
 		
 		System.out.printf("%n Agregando un tiempo de intercambio de Q/10, con Q=4 %n");
 		rr.Quantum(8,20);
-		comp+=rr.calcularT();
+		comp+=rr.calcularT(resu);
 		
 		
 		spf = new SPF(procesos);
-		comp+=spf.calcularT();
+		comp+=spf.calcularT(resu);
 		
 		
 		spf.cargarTI((float)0.4);
-		comp+=spf.calcularT();
+		comp+=spf.calcularT(resu);
 		
 		fcfs = new FCFS(procesos);
-		comp+=fcfs.calcularT();
+		comp+=fcfs.calcularT(resu);
 		
 		System.out.printf("%n%s ",comp);
-		
-		//System.out.println(procesos);
-		
+;	
 		
 		
 		
@@ -66,12 +61,6 @@ public class Planificador {
 		carga('E',3, 13);
 		carga('F',3, 7);
 		
-	}
-	
-	static void reset() {
-		for(int i=0;i<procesos.size();i++) {
-		procesos.get(i).reset();	
-		}
 	}
 	
 	
