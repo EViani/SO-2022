@@ -2,9 +2,9 @@ import java.util.ArrayList;
 
 public class SPF {
 	
-	float reloj;
-	ArrayList<Proceso> lista;
-	float ti;
+	private float reloj;
+	private ArrayList<Proceso> lista;
+	private float ti;
 	
 	
 	public SPF(ArrayList<Proceso> Lpro)  {
@@ -95,16 +95,23 @@ public class SPF {
 		}
 	}
 	
-	public String calcularT() {
+	public String calcularT(ArrayList<Resumen> resu) {
 		procesar();
 		float TRP,TR;
 		float TEP,TE;
 		TEP=0;
 		TRP=0;
+		Resumen r;
 		for(int i=0;i<lista.size();i++) {
+			r = new Resumen();
 			TR=lista.get(i).getTR();
 			TE=TR-lista.get(i).getTS();
-			System.out.printf("PID=%s TS=%d TR=%.2f TE=%.2f  %n",lista.get(i).getPID(),lista.get(i).getTS(),TR,TE);
+			//System.out.printf("PID=%s TS=%d TR=%.2f TE=%.2f  %n",lista.get(i).getPID(),lista.get(i).getTS(),TR,TE);
+			r.setPID(lista.get(i).getPID());
+			r.setTE(TE);
+			r.setTS(lista.get(i).getTS());
+			r.setTR(TR);
+			resu.add(r);
 			TEP+=TE;
 			TRP+=TR;
 		}

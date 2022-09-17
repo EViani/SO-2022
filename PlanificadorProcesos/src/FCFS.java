@@ -1,9 +1,9 @@
 import java.util.ArrayList;
 
 public class FCFS {
-	float ti;
-	float reloj;
-	ArrayList<Proceso> cola;
+	private float ti;
+	private float reloj;
+	private ArrayList<Proceso> cola;
 
 	public FCFS(ArrayList<Proceso> lista) {
 		this.cola=new ArrayList<>();
@@ -46,16 +46,23 @@ public class FCFS {
 		
 	}
 
-	public String calcularT() {
+	public String calcularT(ArrayList<Resumen> resu) {
 		recorrer();
 		float TRP,TR;
 		float TEP,TE;
 		TEP=0;
 		TRP=0;
+		Resumen r;
 		for(Proceso p : cola) {
+			r = new Resumen();
 			TR=p.getTR();
 			TE=TR-p.getTS();
-			System.out.printf("PID=%s TS=%d TR=%.2f TE=%.2f  %n",p.getPID(),p.getTS(),TR,TE);
+			//System.out.printf("PID=%s TS=%d TR=%.2f TE=%.2f  %n",p.getPID(),p.getTS(),TR,TE);
+			r.setPID(p.getPID());
+			r.setTE(TE);
+			r.setTS(p.getTS());
+			r.setTR(TR);
+			resu.add(r);
 			TEP+=TE;
 			TRP+=TR;
 		}

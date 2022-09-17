@@ -1,10 +1,11 @@
 import java.util.ArrayList;
 
 public class RoundRobin {
-	int q;
-	float ti;
-	float reloj;
-	ArrayList<Proceso> ronda;
+	private int q;
+	private float ti;
+	private float reloj;
+	private ArrayList<Proceso> ronda;
+	
 
 	public RoundRobin(ArrayList<Proceso> lista) {
 		this.ronda=new ArrayList<>();
@@ -39,7 +40,7 @@ public class RoundRobin {
 		resetear();
 		reloj=0;
 		pant='$';
-		int tf;
+		int tf,tl;
 		tf=0;
 		System.out.printf("Quantum=%d - TI=%.2f %n",this.q,this.ti);
 		while(restan()>0) {
@@ -88,16 +89,24 @@ public class RoundRobin {
 		return r;
 	}
 	
-	public String calcularT() {
+	public String calcularT(ArrayList<Resumen> resu) {
 		recorrer();
 		float TRP,TR;
 		float TEP,TE;
 		TEP=0;
 		TRP=0;
+		Resumen r;
+		
 		for(int i=0;i<ronda.size();i++) {
+			r = new Resumen();
 			TR=ronda.get(i).getTR();
 			TE=TR-ronda.get(i).getTS();
-			System.out.printf("PID=%s TS=%d TR=%.2f TE=%.2f  %n",ronda.get(i).getPID(),ronda.get(i).getTS(),TR,TE);
+			//System.out.printf("PID=%s TS=%d TR=%.2f TE=%.2f  %n",ronda.get(i).getPID(),ronda.get(i).getTS(),TR,TE);
+			r.setPID(ronda.get(i).getPID());
+			r.setTE(TE);
+			r.setTS(ronda.get(i).getTS());
+			r.setTR(TR);
+			resu.add(r);
 			TEP+=TE;
 			TRP+=TR;
 		}
