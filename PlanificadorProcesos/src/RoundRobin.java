@@ -44,17 +44,18 @@ public class RoundRobin {
 		tf=0;
 		System.out.printf("Quantum=%d - TI=%.2f %n",this.q,this.ti);
 		while(restan()>0) {
+			System.out.printf("Ronda %n");
 			for(int i=0; i<ronda.size();i++) {
 				tf=ronda.get(i).getTF();
 				if(tf>0) {
 					if(ronda.get(i).getPID()!=pant && pant!='$') {
-						System.out.println("call planificador de corto plazo");
+						//System.out.println("call planificador de corto plazo");
 						reloj+=ti/2;
 					}
 					//comienza procesado
 					if(tf>q) {
 						if(ronda.get(i).getPID()!=pant) {
-							System.out.println("call planificador de corto plazo");
+							//System.out.println("call planificador de corto plazo");
 							reloj+=ti/2;
 							pant=ronda.get(i).getPID();
 						}
@@ -63,7 +64,7 @@ public class RoundRobin {
 						System.out.printf("PID=%s, Reloj=%.2f %n",ronda.get(i).getPID(),reloj);
 					}else {
 						if(ronda.get(i).getPID()!=pant) {
-							System.out.println("call planificador de corto plazo");
+						//	System.out.println("call planificador de corto plazo");
 							reloj+=ti/2;
 							pant=ronda.get(i).getPID();
 						}
