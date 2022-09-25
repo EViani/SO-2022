@@ -9,7 +9,7 @@
 #include <sys/types.h>
 #include <sys/ipc.h>
 #include <sys/sem.h>
-#include <errno.h> /*Libreria agregadad*/
+#include <errno.h> /*Libreria agregadada*/
 
 #define SEM_MAX_RECURSO 1 /* Valor inicial de todos los semáforos */
 #define INI 0 /* Índice del primer semáforo */
@@ -51,8 +51,9 @@ int main(int argc, char *argv[])
     clave = ftok(".", 'u');
     switch(tolower(argv[1][0]))
         {
-        case 'c': if(argc != 2)
-            uso();
+        case 'c': 
+            if(argc != 2)
+                uso();
             crear_sem(&semset_id, clave, 1);
             break;
         case 't': abrir_sem(&semset_id, clave);
